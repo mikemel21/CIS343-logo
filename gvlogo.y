@@ -78,10 +78,12 @@ program:		statement_list END				{ printf("Program complete."); shutdown(); exit(
 statement_list:		statement					
 		|	statement statement_list
 		;
-statement:		command SEP					{ prompt(); }
-		|	error '\n' 					{ yyerrok; prompt(); }
+statement:		command SEP						{ prompt(); }
+		|	    error '\n' 						{ yyerrok; prompt(); }
 		;
-command:		PENUP						{ penup(); }
+command:		PENUP							{ penup(); }
+		|		PENDOWN 						{ pendown(); }
+		|		PRINT STRING					{ printf("%s\n", $2); }
 		;
 expression_list:
 		|	// Complete these and any missing rules

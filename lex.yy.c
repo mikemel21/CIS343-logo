@@ -285,11 +285,13 @@ static void yy_fatal_error YY_PROTO(( yyconst char msg[] ));
 	*yy_cp = '\0'; \
 	yy_c_buf_p = yy_cp;
 
-#define YY_NUM_RULES 3
-#define YY_END_OF_BUFFER 4
-static yyconst short int yy_accept[8] =
+#define YY_NUM_RULES 8
+#define YY_END_OF_BUFFER 9
+static yyconst short int yy_accept[25] =
     {   0,
-        0,    0,    4,    2,    1,    1,    0
+        0,    0,    9,    7,    6,    6,    7,    5,    7,    0,
+        4,    0,    0,    0,    0,    0,    0,    0,    0,    1,
+        3,    0,    2,    0
     } ;
 
 static yyconst int yy_ec[256] =
@@ -297,16 +299,16 @@ static yyconst int yy_ec[256] =
         1,    1,    1,    1,    1,    1,    1,    1,    2,    3,
         1,    1,    2,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    2,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    2,    1,    4,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    1,    1,    1,    5,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    6,
 
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        7,    1,    1,    1,    8,    1,    1,    1,    1,    9,
+       10,   11,    1,   12,    1,   13,   14,    1,   15,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
@@ -324,29 +326,42 @@ static yyconst int yy_ec[256] =
         1,    1,    1,    1,    1
     } ;
 
-static yyconst int yy_meta[4] =
+static yyconst int yy_meta[16] =
     {   0,
-        1,    1,    1
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1
     } ;
 
-static yyconst short int yy_base[8] =
+static yyconst short int yy_base[27] =
     {   0,
-        0,    0,    4,    5,    5,    5,    5
+        0,   10,   29,   30,   30,   30,   24,   30,   10,   23,
+       30,   17,   17,    2,   15,   13,    9,    6,    3,   30,
+       30,    0,   30,   30,    5,    0
     } ;
 
-static yyconst short int yy_def[8] =
+static yyconst short int yy_def[27] =
     {   0,
-        7,    1,    7,    7,    7,    7,    0
+       25,   25,   24,   24,   24,   24,   26,   24,   24,   26,
+       24,   24,   24,   24,   24,   24,   24,   24,   24,   24,
+       24,   24,   24,    0,   24,   24
     } ;
 
-static yyconst short int yy_nxt[9] =
+static yyconst short int yy_nxt[46] =
     {   0,
-        4,    5,    6,    7,    3,    7,    7,    7
+       10,    5,    6,    7,    8,    4,   24,   16,   23,   24,
+        9,    5,    6,    7,    8,   17,   12,   22,   21,   20,
+        9,   13,   19,   18,   15,   14,   11,   11,   24,    3,
+       24,   24,   24,   24,   24,   24,   24,   24,   24,   24,
+       24,   24,   24,   24,   24
     } ;
 
-static yyconst short int yy_chk[9] =
+static yyconst short int yy_chk[46] =
     {   0,
-        1,    1,    1,    3,    7,    7,    7,    7
+       26,    1,    1,    1,    1,   25,    0,   14,   22,    0,
+        1,    2,    2,    2,    2,   14,    9,   19,   18,   17,
+        2,    9,   16,   15,   13,   12,   10,    7,    3,   24,
+       24,   24,   24,   24,   24,   24,   24,   24,   24,   24,
+       24,   24,   24,   24,   24
     } ;
 
 static yy_state_type yy_last_accepting_state;
@@ -368,7 +383,7 @@ char *yytext;
 #include "gvlogo.tab.h"
 
 extern void yyerror(const char* s);
-#line 372 "lex.yy.c"
+#line 387 "lex.yy.c"
 
 /* Macros after this point can all be overridden by user definitions in
  * section 1.
@@ -521,9 +536,7 @@ YY_DECL
 
 #line 10 "gvlogo.l"
 
-
-
-#line 527 "lex.yy.c"
+#line 540 "lex.yy.c"
 
 	if ( yy_init )
 		{
@@ -574,13 +587,13 @@ yy_match:
 			while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 				{
 				yy_current_state = (int) yy_def[yy_current_state];
-				if ( yy_current_state >= 8 )
+				if ( yy_current_state >= 25 )
 					yy_c = yy_meta[(unsigned int) yy_c];
 				}
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
 			++yy_cp;
 			}
-		while ( yy_base[yy_current_state] != 5 );
+		while ( yy_base[yy_current_state] != 30 );
 
 yy_find_action:
 		yy_act = yy_accept[yy_current_state];
@@ -608,20 +621,45 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 13 "gvlogo.l"
-;
+#line 11 "gvlogo.l"
+{ return PENUP; }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 14 "gvlogo.l"
-{ yyerror("Lexing Syntax error.\n"); } 
+#line 12 "gvlogo.l"
+{ return PENDOWN; }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 16 "gvlogo.l"
+#line 13 "gvlogo.l"
+{ return PRINT; }
+	YY_BREAK
+case 4:
+YY_RULE_SETUP
+#line 14 "gvlogo.l"
+{ yylval.s = yytext; return STRING; }
+	YY_BREAK
+case 5:
+YY_RULE_SETUP
+#line 15 "gvlogo.l"
+{ return SEP; }
+	YY_BREAK
+case 6:
+YY_RULE_SETUP
+#line 17 "gvlogo.l"
+;
+	YY_BREAK
+case 7:
+YY_RULE_SETUP
+#line 18 "gvlogo.l"
+{ yyerror("Lexing Syntax error.\n"); } 
+	YY_BREAK
+case 8:
+YY_RULE_SETUP
+#line 20 "gvlogo.l"
 ECHO;
 	YY_BREAK
-#line 625 "lex.yy.c"
+#line 663 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -913,7 +951,7 @@ static yy_state_type yy_get_previous_state()
 		while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 			{
 			yy_current_state = (int) yy_def[yy_current_state];
-			if ( yy_current_state >= 8 )
+			if ( yy_current_state >= 25 )
 				yy_c = yy_meta[(unsigned int) yy_c];
 			}
 		yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
@@ -948,11 +986,11 @@ yy_state_type yy_current_state;
 	while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 		{
 		yy_current_state = (int) yy_def[yy_current_state];
-		if ( yy_current_state >= 8 )
+		if ( yy_current_state >= 25 )
 			yy_c = yy_meta[(unsigned int) yy_c];
 		}
 	yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
-	yy_is_jam = (yy_current_state == 7);
+	yy_is_jam = (yy_current_state == 24);
 
 	return yy_is_jam ? 0 : yy_current_state;
 	}
@@ -1507,5 +1545,5 @@ int main()
 	return 0;
 	}
 #endif
-#line 16 "gvlogo.l"
+#line 20 "gvlogo.l"
 
