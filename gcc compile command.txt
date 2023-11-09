@@ -1,0 +1,1 @@
+gcc *.c -IC:\Users\mikem\Documents\structureProgrammingLang\CIS343-logo\SDL2\include -LC:\Users\mikem\Documents\structureProgrammingLang\CIS343-logo\SDL2\lib -lmingw32 -lSDL2main -lSDL2 -o gvlogo
