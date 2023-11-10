@@ -52,12 +52,13 @@
      NUMBER = 268,
      END = 269,
      SAVE = 270,
-     PLUS = 271,
-     SUB = 272,
-     MULT = 273,
-     DIV = 274,
-     STRING = 275,
-     QSTRING = 276
+     GOTO = 271,
+     PLUS = 272,
+     SUB = 273,
+     MULT = 274,
+     DIV = 275,
+     STRING = 276,
+     QSTRING = 277
    };
 #endif
 
@@ -68,7 +69,7 @@ typedef union YYSTYPE
 {
 
 /* Line 1676 of yacc.c  */
-#line 50 "gvlogo.y"
+#line 51 "gvlogo.y"
 
 	float f;
 	char* s;
@@ -76,7 +77,7 @@ typedef union YYSTYPE
 
 
 /* Line 1676 of yacc.c  */
-#line 80 "gvlogo.tab.h"
+#line 81 "gvlogo.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

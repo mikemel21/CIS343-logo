@@ -38,6 +38,7 @@ void prompt();
 void penup();
 void pendown();
 void move(int num);
+void goTo(int x, int y);
 void turn(int dir);
 void output(const char* s);
 void change_color(int r, int g, int b);
@@ -67,6 +68,7 @@ void shutdown();
 %token NUMBER
 %token END
 %token SAVE
+%token GOTO
 %token PLUS SUB MULT DIV
 %token<s> STRING QSTRING
 %type<f> expression expression_list NUMBER
@@ -78,21 +80,27 @@ program:		statement_list END				{ printf("Program complete."); shutdown(); exit(
 statement_list:		statement					
 		|	statement statement_list
 		;
-statement:		command SEP						{ prompt(); }
-		|	    error '\n' 						{ yyerrok; prompt(); }
+statement:		command SEP								{ prompt(); }
+		|	    error '\n' 								{ yyerrok; prompt(); }
 		;
-command:		PENUP							{ penup(); }
-		|		PENDOWN 						{ pendown(); }
-		|		PRINT STRING					{ printf("%s\n", $2); }
+command:		PENUP									{ penup(); }
+		|		PENDOWN 								{ pendown(); }
+		|		PRINT STRING							{ printf("%s\n", $2); }
+		|		MOVE NUMBER								{ move($2); }
+		|		CHANGE_COLOR NUMBER NUMBER NUMBER		{ change_color($2, $3, $4); }
+		|		CLEAR									{ clear(); }
+		|		TURN NUMBER								{ turn($2); }
+		|		SAVE STRING								{ save($2); }
+		|		GOTO NUMBER NUMBER						{ goTo($2, $3); }
 		;
 expression_list:
 		|	// Complete these and any missing rules
 		;
-expression:		NUMBER PLUS expression				{ $$ = $1 + $3; }
-		|	NUMBER MULT expression				{ $$ = $1 * $3; }
-		|	NUMBER SUB expression				{ $$ = $1 - $3; }
-		|	NUMBER DIV expression				{ $$ = $1 / $3; }
-		|	NUMBER
+expression:		NUMBER PLUS expression					{ $$ = $1 + $3; }
+		|		NUMBER MULT expression				    { $$ = $1 * $3; }
+		|		NUMBER SUB expression				    { $$ = $1 - $3; }
+		|		NUMBER DIV expression				    { $$ = $1 / $3; }
+		|		NUMBER
 		;
 
 %%
@@ -130,6 +138,14 @@ void move(int num){
 	SDL_PushEvent(&event);
 }
 
+void goTo (int x, int y) {
+	event.type = DRAW_EVENT;
+	event.user.code = 3;
+	event.user.data1 = x;
+	event.user.data2 = y;
+	SDL_PushEvent(&event);
+}
+
 void turn(int dir){
 	event.type = PEN_EVENT;
 	event.user.code = 2;
@@ -141,7 +157,7 @@ void output(const char* s){
 	printf("%s\n", s);
 }
 
-void change_color(int r, int g, int b){
+void change_color(int r, int g, int b) {
 	event.type = COLOR_EVENT;
 	current_color.r = r;
 	current_color.g = g;
@@ -209,6 +225,19 @@ void startup(){
 					SDL_SetTextureColorMod(texture, current_color.r, current_color.g, current_color.b);
 					SDL_SetRenderTarget(rend, NULL);
 					SDL_RenderClear(rend);
+				}
+				else if (e.user.code == 3) {
+					int a = (int) event.user.data1;
+					int b = (int) event.user.data2;
+					if(pen_state != 0){
+						SDL_SetRenderTarget(rend, texture);
+						SDL_RenderDrawLine(rend, x, y, a, b);
+						SDL_SetRenderTarget(rend, NULL);
+						SDL_RenderCopy(rend, texture, NULL, NULL);
+						SDL_RenderDrawPoint(rend, a, b);
+					}
+					x = a;
+					y = b;					
 				}
 			}
 			if(e.type == COLOR_EVENT){
