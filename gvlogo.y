@@ -17,6 +17,7 @@ static int running = 1;
 static const int PEN_EVENT = SDL_USEREVENT + 1;
 static const int DRAW_EVENT = SDL_USEREVENT + 2;
 static const int COLOR_EVENT = SDL_USEREVENT + 3;
+static const int WHERE_EVENT = SDL_USEREVENT + 4;
 
 typedef struct color_t {
 	unsigned char r;
@@ -39,6 +40,7 @@ void penup();
 void pendown();
 void move(int num);
 void goTo(int x, int y);
+void where();
 void turn(int dir);
 void output(const char* s);
 void change_color(int r, int g, int b);
@@ -69,18 +71,20 @@ void shutdown();
 %token END
 %token SAVE
 %token GOTO
+%token WHERE
 %token PLUS SUB MULT DIV
 %token<s> STRING QSTRING
 %type<f> expression expression_list NUMBER
 
 %%
 
-program:		statement_list END				{ printf("Program complete."); shutdown(); exit(0); }
+program:		statement_list END						{ printf("Program complete."); shutdown(); exit(0); }
 		;
 statement_list:		statement					
 		|	statement statement_list
 		;
-statement:		command SEP								{ prompt(); }
+statement:		command SEP							    { prompt(); }
+		|		expression_list	SEP						{ prompt(); }
 		|	    error '\n' 								{ yyerrok; prompt(); }
 		;
 command:		PENUP									{ penup(); }
@@ -92,15 +96,16 @@ command:		PENUP									{ penup(); }
 		|		TURN NUMBER								{ turn($2); }
 		|		SAVE STRING								{ save($2); }
 		|		GOTO NUMBER NUMBER						{ goTo($2, $3); }
+		| 		WHERE									{ printf("x: %d, y: %d\n", x, y); }
 		;
-expression_list:
-		|	// Complete these and any missing rules
+expression_list: expression								{ printf("%d\n", $1); }
+		|		 expression expression_list				{ printf("%d\n", $2); }
 		;
-expression:		NUMBER PLUS expression					{ $$ = $1 + $3; }
-		|		NUMBER MULT expression				    { $$ = $1 * $3; }
-		|		NUMBER SUB expression				    { $$ = $1 - $3; }
+expression: 	NUMBER									{ $$ = $1; }
+		| 		NUMBER PLUS expression					{ $$ = $1 + $3; }
+		|		NUMBER MULT expression		    		{ $$ = $1 * $3; }
+		|		NUMBER SUB expression		    		{ $$ = $1 - $3; }
 		|		NUMBER DIV expression				    { $$ = $1 / $3; }
-		|		NUMBER
 		;
 
 %%
@@ -234,6 +239,7 @@ void startup(){
 						SDL_RenderDrawLine(rend, x, y, a, b);
 						SDL_SetRenderTarget(rend, NULL);
 						SDL_RenderCopy(rend, texture, NULL, NULL);
+						// Moves the pen to the coordinate
 						SDL_RenderDrawPoint(rend, a, b);
 					}
 					x = a;

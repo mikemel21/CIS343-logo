@@ -8,18 +8,21 @@ extern void yyerror(const char* s);
 %}
 
 %%
-penup                                       { return PENUP; }
-pendown                                     { return PENDOWN; }
-print                                       { return PRINT; }
-\"[^\"]*\"                                  { yylval.s = yytext; return STRING; }
-move                                        { return MOVE; }
-[0-9]+                                      { yylval.f = atoi(yytext); return NUMBER; }
-color                                       { return CHANGE_COLOR; }
-clear                                       { return CLEAR; }
-turn                                        { return TURN; }
-save                                        { return SAVE; }
-[a-zA-z0-9./_]+\.bmp                        { yylval.s = yytext; return STRING; }
-goto                                        { return GOTO; }
+penup                                           { return PENUP; }
+pendown                                         { return PENDOWN; }
+print                                           { return PRINT; }
+\"[^\"]*\"                                      { yylval.s = yytext; return STRING; }
+move                                            { return MOVE; }
+-?[0-9]+                                        { yylval.f = atoi(yytext); return NUMBER; }
+color                                           { return CHANGE_COLOR; }
+clear                                           { return CLEAR; }
+turn                                            { return TURN; }
+save                                            { return SAVE; }
+[a-zA-z0-9./_]+\.bmp                            { yylval.s = yytext; return STRING; }
+goto                                            { return GOTO; }
+where                                           { return WHERE; }
+"+"                                             { return PLUS; }
+
 
 ;                               { return SEP; }
 [ \t\r\n]			            ;

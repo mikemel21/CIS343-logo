@@ -88,6 +88,7 @@ static int running = 1;
 static const int PEN_EVENT = SDL_USEREVENT + 1;
 static const int DRAW_EVENT = SDL_USEREVENT + 2;
 static const int COLOR_EVENT = SDL_USEREVENT + 3;
+static const int WHERE_EVENT = SDL_USEREVENT + 4;
 
 typedef struct color_t {
 	unsigned char r;
@@ -110,6 +111,7 @@ void penup();
 void pendown();
 void move(int num);
 void goTo(int x, int y);
+void where();
 void turn(int dir);
 void output(const char* s);
 void change_color(int r, int g, int b);
@@ -120,7 +122,7 @@ void shutdown();
 
 
 /* Line 189 of yacc.c  */
-#line 124 "gvlogo.tab.c"
+#line 126 "gvlogo.tab.c"
 
 /* Enabling traces.  */
 #ifndef YYDEBUG
@@ -161,12 +163,13 @@ void shutdown();
      END = 269,
      SAVE = 270,
      GOTO = 271,
-     PLUS = 272,
-     SUB = 273,
-     MULT = 274,
-     DIV = 275,
-     STRING = 276,
-     QSTRING = 277
+     WHERE = 272,
+     PLUS = 273,
+     SUB = 274,
+     MULT = 275,
+     DIV = 276,
+     STRING = 277,
+     QSTRING = 278
    };
 #endif
 
@@ -177,7 +180,7 @@ typedef union YYSTYPE
 {
 
 /* Line 214 of yacc.c  */
-#line 51 "gvlogo.y"
+#line 53 "gvlogo.y"
 
 	float f;
 	char* s;
@@ -185,7 +188,7 @@ typedef union YYSTYPE
 
 
 /* Line 214 of yacc.c  */
-#line 189 "gvlogo.tab.c"
+#line 192 "gvlogo.tab.c"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -210,7 +213,7 @@ typedef struct YYLTYPE
 
 
 /* Line 264 of yacc.c  */
-#line 214 "gvlogo.tab.c"
+#line 217 "gvlogo.tab.c"
 
 #ifdef short
 # undef short
@@ -425,22 +428,22 @@ union yyalloc
 #endif
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  22
+#define YYFINAL  30
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   34
+#define YYLAST   51
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  24
+#define YYNTOKENS  25
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  5
+#define YYNNTS  7
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  15
+#define YYNRULES  24
 /* YYNRULES -- Number of states.  */
-#define YYNSTATES  29
+#define YYNSTATES  43
 
 /* YYTRANSLATE(YYLEX) -- Bison symbol number corresponding to YYLEX.  */
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   277
+#define YYMAXUTOK   278
 
 #define YYTRANSLATE(YYX)						\
   ((unsigned int) (YYX) <= YYMAXUTOK ? yytranslate[YYX] : YYUNDEFTOK)
@@ -449,7 +452,7 @@ union yyalloc
 static const yytype_uint8 yytranslate[] =
 {
        0,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-      23,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+      24,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -475,7 +478,7 @@ static const yytype_uint8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
-      15,    16,    17,    18,    19,    20,    21,    22
+      15,    16,    17,    18,    19,    20,    21,    22,    23
 };
 
 #if YYDEBUG
@@ -483,25 +486,30 @@ static const yytype_uint8 yytranslate[] =
    YYRHS.  */
 static const yytype_uint8 yyprhs[] =
 {
-       0,     0,     3,     6,     8,    11,    14,    17,    19,    21,
-      24,    27,    32,    34,    37,    40
+       0,     0,     3,     6,     8,    11,    14,    17,    20,    22,
+      24,    27,    30,    35,    37,    40,    43,    47,    49,    51,
+      54,    56,    60,    64,    68
 };
 
 /* YYRHS -- A `-1'-separated list of the rules' RHS.  */
 static const yytype_int8 yyrhs[] =
 {
-      25,     0,    -1,    26,    14,    -1,    27,    -1,    27,    26,
-      -1,    28,     3,    -1,     1,    23,    -1,     4,    -1,     5,
-      -1,     6,    21,    -1,    12,    13,    -1,     7,    13,    13,
-      13,    -1,     9,    -1,    10,    13,    -1,    15,    21,    -1,
-      16,    13,    13,    -1
+      26,     0,    -1,    27,    14,    -1,    28,    -1,    28,    27,
+      -1,    29,     3,    -1,    30,     3,    -1,     1,    24,    -1,
+       4,    -1,     5,    -1,     6,    22,    -1,    12,    13,    -1,
+       7,    13,    13,    13,    -1,     9,    -1,    10,    13,    -1,
+      15,    22,    -1,    16,    13,    13,    -1,    17,    -1,    31,
+      -1,    31,    30,    -1,    13,    -1,    13,    18,    31,    -1,
+      13,    20,    31,    -1,    13,    19,    31,    -1,    13,    21,
+      31,    -1
 };
 
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    78,    78,    80,    81,    83,    84,    86,    87,    88,
-      89,    90,    91,    92,    93,    94
+       0,    81,    81,    83,    84,    86,    87,    88,    90,    91,
+      92,    93,    94,    95,    96,    97,    98,    99,   101,   102,
+     104,   105,   106,   107,   108
 };
 #endif
 
@@ -512,8 +520,9 @@ static const char *const yytname[] =
 {
   "$end", "error", "$undefined", "SEP", "PENUP", "PENDOWN", "PRINT",
   "CHANGE_COLOR", "COLOR", "CLEAR", "TURN", "LOOP", "MOVE", "NUMBER",
-  "END", "SAVE", "GOTO", "PLUS", "SUB", "MULT", "DIV", "STRING", "QSTRING",
-  "'\\n'", "$accept", "program", "statement_list", "statement", "command", 0
+  "END", "SAVE", "GOTO", "WHERE", "PLUS", "SUB", "MULT", "DIV", "STRING",
+  "QSTRING", "'\\n'", "$accept", "program", "statement_list", "statement",
+  "command", "expression_list", "expression", 0
 };
 #endif
 
@@ -524,22 +533,24 @@ static const yytype_uint16 yytoknum[] =
 {
        0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
      265,   266,   267,   268,   269,   270,   271,   272,   273,   274,
-     275,   276,   277,    10
+     275,   276,   277,   278,    10
 };
 # endif
 
 /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,    24,    25,    26,    26,    27,    27,    28,    28,    28,
-      28,    28,    28,    28,    28,    28
+       0,    25,    26,    27,    27,    28,    28,    28,    29,    29,
+      29,    29,    29,    29,    29,    29,    29,    29,    30,    30,
+      31,    31,    31,    31,    31
 };
 
 /* YYR2[YYN] -- Number of symbols composing right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
-       0,     2,     2,     1,     2,     2,     2,     1,     1,     2,
-       2,     4,     1,     2,     2,     3
+       0,     2,     2,     1,     2,     2,     2,     2,     1,     1,
+       2,     2,     4,     1,     2,     2,     3,     1,     1,     2,
+       1,     3,     3,     3,     3
 };
 
 /* YYDEFACT[STATE-NAME] -- Default rule to reduce with in state
@@ -547,31 +558,35 @@ static const yytype_uint8 yyr2[] =
    means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       0,     0,     7,     8,     0,     0,    12,     0,     0,     0,
-       0,     0,     0,     0,     0,     6,     9,     0,    13,    10,
-      14,     0,     1,     2,     4,     5,     0,    15,    11
+       0,     0,     8,     9,     0,     0,    13,     0,     0,    20,
+       0,     0,    17,     0,     0,     0,     0,     0,    18,     7,
+      10,     0,    14,    11,     0,     0,     0,     0,    15,     0,
+       1,     2,     4,     5,     6,    19,     0,    21,    23,    22,
+      24,    16,    12
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,    11,    12,    13,    14
+      -1,    13,    14,    15,    16,    17,    18
 };
 
 /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
    STATE-NUM.  */
-#define YYPACT_NINF -23
+#define YYPACT_NINF -24
 static const yytype_int8 yypact[] =
 {
-      15,   -22,   -23,   -23,   -19,    -6,   -23,    -3,     4,    -9,
-       5,    23,    12,    -1,    25,   -23,   -23,    16,   -23,   -23,
-     -23,    19,   -23,   -23,   -23,   -23,    20,   -23,   -23
+      16,   -23,   -24,   -24,   -20,    -6,   -24,    -3,     5,    17,
+       2,     6,   -24,    27,    20,    -1,    40,    41,    32,   -24,
+     -24,    33,   -24,   -24,    32,    32,    32,    32,   -24,    34,
+     -24,   -24,   -24,   -24,   -24,   -24,    35,   -24,   -24,   -24,
+     -24,   -24,   -24
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -23,   -23,    21,   -23,   -23
+     -24,   -24,    36,   -24,   -24,    12,    15
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]].  What to do in state STATE-NUM.  If
@@ -581,27 +596,33 @@ static const yytype_int8 yypgoto[] =
 #define YYTABLE_NINF -4
 static const yytype_int8 yytable[] =
 {
-       1,    15,    16,     2,     3,     4,     5,    17,     6,     7,
-      18,     8,    20,    -3,     9,    10,     1,    19,    21,     2,
-       3,     4,     5,    22,     6,     7,    23,     8,    25,    26,
-       9,    10,    27,    28,    24
+       1,    19,    20,     2,     3,     4,     5,    21,     6,     7,
+      22,     8,     9,    -3,    10,    11,    12,     1,    23,    29,
+       2,     3,     4,     5,    28,     6,     7,    30,     8,     9,
+      35,    10,    11,    12,    31,    24,    25,    26,    27,    37,
+      38,    39,    40,    33,    34,     9,    36,    41,    42,     0,
+       0,    32
 };
 
-static const yytype_uint8 yycheck[] =
+static const yytype_int8 yycheck[] =
 {
-       1,    23,    21,     4,     5,     6,     7,    13,     9,    10,
-      13,    12,    21,    14,    15,    16,     1,    13,    13,     4,
-       5,     6,     7,     0,     9,    10,    14,    12,     3,    13,
-      15,    16,    13,    13,    13
+       1,    24,    22,     4,     5,     6,     7,    13,     9,    10,
+      13,    12,    13,    14,    15,    16,    17,     1,    13,    13,
+       4,     5,     6,     7,    22,     9,    10,     0,    12,    13,
+      18,    15,    16,    17,    14,    18,    19,    20,    21,    24,
+      25,    26,    27,     3,     3,    13,    13,    13,    13,    -1,
+      -1,    15
 };
 
 /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
    symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,     1,     4,     5,     6,     7,     9,    10,    12,    15,
-      16,    25,    26,    27,    28,    23,    21,    13,    13,    13,
-      21,    13,     0,    14,    26,     3,    13,    13,    13
+       0,     1,     4,     5,     6,     7,     9,    10,    12,    13,
+      15,    16,    17,    26,    27,    28,    29,    30,    31,    24,
+      22,    13,    13,    13,    18,    19,    20,    21,    22,    13,
+       0,    14,    27,     3,     3,    30,    13,    31,    31,    31,
+      31,    13,    13
 };
 
 #define yyerrok		(yyerrstatus = 0)
@@ -1450,91 +1471,154 @@ yyreduce:
         case 2:
 
 /* Line 1455 of yacc.c  */
-#line 78 "gvlogo.y"
+#line 81 "gvlogo.y"
     { printf("Program complete."); shutdown(); exit(0); ;}
     break;
 
   case 5:
 
 /* Line 1455 of yacc.c  */
-#line 83 "gvlogo.y"
+#line 86 "gvlogo.y"
     { prompt(); ;}
     break;
 
   case 6:
 
 /* Line 1455 of yacc.c  */
-#line 84 "gvlogo.y"
-    { yyerrok; prompt(); ;}
+#line 87 "gvlogo.y"
+    { prompt(); ;}
     break;
 
   case 7:
 
 /* Line 1455 of yacc.c  */
-#line 86 "gvlogo.y"
-    { penup(); ;}
+#line 88 "gvlogo.y"
+    { yyerrok; prompt(); ;}
     break;
 
   case 8:
 
 /* Line 1455 of yacc.c  */
-#line 87 "gvlogo.y"
-    { pendown(); ;}
+#line 90 "gvlogo.y"
+    { penup(); ;}
     break;
 
   case 9:
 
 /* Line 1455 of yacc.c  */
-#line 88 "gvlogo.y"
-    { printf("%s\n", (yyvsp[(2) - (2)].s)); ;}
+#line 91 "gvlogo.y"
+    { pendown(); ;}
     break;
 
   case 10:
 
 /* Line 1455 of yacc.c  */
-#line 89 "gvlogo.y"
-    { move((yyvsp[(2) - (2)].f)); ;}
+#line 92 "gvlogo.y"
+    { printf("%s\n", (yyvsp[(2) - (2)].s)); ;}
     break;
 
   case 11:
 
 /* Line 1455 of yacc.c  */
-#line 90 "gvlogo.y"
-    { change_color((yyvsp[(2) - (4)].f), (yyvsp[(3) - (4)].f), (yyvsp[(4) - (4)].f)); ;}
+#line 93 "gvlogo.y"
+    { move((yyvsp[(2) - (2)].f)); ;}
     break;
 
   case 12:
 
 /* Line 1455 of yacc.c  */
-#line 91 "gvlogo.y"
-    { clear(); ;}
+#line 94 "gvlogo.y"
+    { change_color((yyvsp[(2) - (4)].f), (yyvsp[(3) - (4)].f), (yyvsp[(4) - (4)].f)); ;}
     break;
 
   case 13:
 
 /* Line 1455 of yacc.c  */
-#line 92 "gvlogo.y"
-    { turn((yyvsp[(2) - (2)].f)); ;}
+#line 95 "gvlogo.y"
+    { clear(); ;}
     break;
 
   case 14:
 
 /* Line 1455 of yacc.c  */
-#line 93 "gvlogo.y"
-    { save((yyvsp[(2) - (2)].s)); ;}
+#line 96 "gvlogo.y"
+    { turn((yyvsp[(2) - (2)].f)); ;}
     break;
 
   case 15:
 
 /* Line 1455 of yacc.c  */
-#line 94 "gvlogo.y"
+#line 97 "gvlogo.y"
+    { save((yyvsp[(2) - (2)].s)); ;}
+    break;
+
+  case 16:
+
+/* Line 1455 of yacc.c  */
+#line 98 "gvlogo.y"
     { goTo((yyvsp[(2) - (3)].f), (yyvsp[(3) - (3)].f)); ;}
+    break;
+
+  case 17:
+
+/* Line 1455 of yacc.c  */
+#line 99 "gvlogo.y"
+    { printf("x: %d, y: %d\n", x, y); ;}
+    break;
+
+  case 18:
+
+/* Line 1455 of yacc.c  */
+#line 101 "gvlogo.y"
+    { printf("%d\n", (yyvsp[(1) - (1)].f)); ;}
+    break;
+
+  case 19:
+
+/* Line 1455 of yacc.c  */
+#line 102 "gvlogo.y"
+    { printf("%d\n", (yyvsp[(2) - (2)].f)); ;}
+    break;
+
+  case 20:
+
+/* Line 1455 of yacc.c  */
+#line 104 "gvlogo.y"
+    { (yyval.f) = (yyvsp[(1) - (1)].f); ;}
+    break;
+
+  case 21:
+
+/* Line 1455 of yacc.c  */
+#line 105 "gvlogo.y"
+    { (yyval.f) = (yyvsp[(1) - (3)].f) + (yyvsp[(3) - (3)].f); ;}
+    break;
+
+  case 22:
+
+/* Line 1455 of yacc.c  */
+#line 106 "gvlogo.y"
+    { (yyval.f) = (yyvsp[(1) - (3)].f) * (yyvsp[(3) - (3)].f); ;}
+    break;
+
+  case 23:
+
+/* Line 1455 of yacc.c  */
+#line 107 "gvlogo.y"
+    { (yyval.f) = (yyvsp[(1) - (3)].f) - (yyvsp[(3) - (3)].f); ;}
+    break;
+
+  case 24:
+
+/* Line 1455 of yacc.c  */
+#line 108 "gvlogo.y"
+    { (yyval.f) = (yyvsp[(1) - (3)].f) / (yyvsp[(3) - (3)].f); ;}
     break;
 
 
 
 /* Line 1455 of yacc.c  */
-#line 1538 "gvlogo.tab.c"
+#line 1622 "gvlogo.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1753,7 +1837,7 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 106 "gvlogo.y"
+#line 111 "gvlogo.y"
 
 
 int main(int argc, char** argv){
@@ -1885,6 +1969,7 @@ void startup(){
 						SDL_RenderDrawLine(rend, x, y, a, b);
 						SDL_SetRenderTarget(rend, NULL);
 						SDL_RenderCopy(rend, texture, NULL, NULL);
+						// Moves the pen to the coordinate
 						SDL_RenderDrawPoint(rend, a, b);
 					}
 					x = a;
