@@ -1570,55 +1570,48 @@ yyreduce:
 
 /* Line 1455 of yacc.c  */
 #line 101 "gvlogo.y"
-    { printf("%d\n", (yyvsp[(1) - (1)].f)); ;}
-    break;
-
-  case 19:
-
-/* Line 1455 of yacc.c  */
-#line 102 "gvlogo.y"
-    { printf("%d\n", (yyvsp[(2) - (2)].f)); ;}
+    { printf("%0.2f\n", (yyvsp[(1) - (1)].f)); ;}
     break;
 
   case 20:
 
 /* Line 1455 of yacc.c  */
 #line 104 "gvlogo.y"
-    { (yyval.f) = (yyvsp[(1) - (1)].f); ;}
+    { (yyval.f)=(yyvsp[(1) - (1)].f); ;}
     break;
 
   case 21:
 
 /* Line 1455 of yacc.c  */
 #line 105 "gvlogo.y"
-    { (yyval.f) = (yyvsp[(1) - (3)].f) + (yyvsp[(3) - (3)].f); ;}
+    { (yyval.f)=(yyvsp[(1) - (3)].f)+(yyvsp[(3) - (3)].f); ;}
     break;
 
   case 22:
 
 /* Line 1455 of yacc.c  */
 #line 106 "gvlogo.y"
-    { (yyval.f) = (yyvsp[(1) - (3)].f) * (yyvsp[(3) - (3)].f); ;}
+    { (yyval.f)=(yyvsp[(1) - (3)].f)*(yyvsp[(3) - (3)].f); ;}
     break;
 
   case 23:
 
 /* Line 1455 of yacc.c  */
 #line 107 "gvlogo.y"
-    { (yyval.f) = (yyvsp[(1) - (3)].f) - (yyvsp[(3) - (3)].f); ;}
+    { (yyval.f)=(yyvsp[(1) - (3)].f)-(yyvsp[(3) - (3)].f); ;}
     break;
 
   case 24:
 
 /* Line 1455 of yacc.c  */
 #line 108 "gvlogo.y"
-    { (yyval.f) = (yyvsp[(1) - (3)].f) / (yyvsp[(3) - (3)].f); ;}
+    { (yyval.f)=(yyvsp[(1) - (3)].f)/(yyvsp[(3) - (3)].f); ;}
     break;
 
 
 
 /* Line 1455 of yacc.c  */
-#line 1622 "gvlogo.tab.c"
+#line 1615 "gvlogo.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);

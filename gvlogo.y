@@ -98,14 +98,14 @@ command:		PENUP									{ penup(); }
 		|		GOTO NUMBER NUMBER						{ goTo($2, $3); }
 		| 		WHERE									{ printf("x: %d, y: %d\n", x, y); }
 		;
-expression_list: expression								{ printf("%d\n", $1); }
-		|		 expression expression_list				{ printf("%d\n", $2); }
+expression_list: expression								{ printf("%0.2f\n", $1); }
+		|		 expression expression_list				
 		;
-expression: 	NUMBER									{ $$ = $1; }
-		| 		NUMBER PLUS expression					{ $$ = $1 + $3; }
-		|		NUMBER MULT expression		    		{ $$ = $1 * $3; }
-		|		NUMBER SUB expression		    		{ $$ = $1 - $3; }
-		|		NUMBER DIV expression				    { $$ = $1 / $3; }
+expression: 	NUMBER									{ $$=$1; }
+		| 		NUMBER PLUS expression					{ $$=$1+$3; }
+		|		NUMBER MULT expression		    		{ $$=$1*$3; }
+		|		NUMBER SUB expression		    		{ $$=$1-$3; }
+		|		NUMBER DIV expression				    { $$=$1/$3; }
 		;
 
 %%
