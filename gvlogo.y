@@ -79,6 +79,7 @@ void shutdown();
 %%
 
 program:		statement_list END						{ printf("Program complete."); shutdown(); exit(0); }
+		|		END										{ printf("Program complete."); shutdown(); exit(0); }
 		;
 statement_list:		statement					
 		|	statement statement_list
@@ -96,7 +97,7 @@ command:		PENUP									{ penup(); }
 		|		TURN NUMBER								{ turn($2); }
 		|		SAVE STRING								{ save($2); }
 		|		GOTO NUMBER NUMBER						{ goTo($2, $3); }
-		| 		WHERE									{ printf("x: %d, y: %d\n", x, y); }
+		| 		WHERE									{ printf("x: %.2f, y: %.2f\n", x, y); }
 		;
 expression_list: expression								{ printf("%0.2f\n", $1); }
 		|		 expression expression_list				

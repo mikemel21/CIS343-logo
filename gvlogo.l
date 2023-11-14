@@ -22,6 +22,7 @@ save                                            { return SAVE; }
 [a-zA-z0-9./_]+\.bmp                            { yylval.s = yytext; return STRING; }
 goto                                            { return GOTO; }
 where                                           { return WHERE; }
+end                                             { return END; }
 "+"                                             { return PLUS; }
 "-"                                             { return SUB; }
 "*"                                             { return MULT; }
