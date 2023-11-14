@@ -74,7 +74,7 @@ void shutdown();
 %token WHERE
 %token PLUS SUB MULT DIV
 %token<s> STRING QSTRING
-%type<f> factor expression expression_list NUMBER
+%type<f> multDiv expression expression_list NUMBER
 
 %%
 
@@ -101,13 +101,13 @@ command:		PENUP									{ penup(); }
 expression_list: expression								{ printf("%0.2f\n", $1); }
 		|		 expression expression_list				
 		;
-expression: 	factor									{ $$ = $1; }
-		| 		expression PLUS factor					{ $$ =$1 + $3; }
-		|		expression SUB factor	    		    { $$ =$1 - $3; }
+expression: 	multDiv									{ $$ = $1; }
+		| 		expression PLUS multDiv					{ $$ = $1 + $3; }
+		|		expression SUB multDiv	    		    { $$ = $1 - $3; }
 		;
-factor: 		NUMBER 									{ $$ = $1; }
-		|		factor MULT NUMBER						{ $$ = $1 * $3; }
-		|		factor DIV NUMBER						{ $$ = $1 / $3; }
+multDiv: 		NUMBER 									{ $$ = $1; }
+		|		multDiv MULT NUMBER						{ $$ = $1 * $3; }
+		|		multDiv DIV NUMBER						{ $$ = $1 / $3; }
 		;
 
 %%

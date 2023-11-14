@@ -522,7 +522,7 @@ static const char *const yytname[] =
   "CHANGE_COLOR", "COLOR", "CLEAR", "TURN", "LOOP", "MOVE", "NUMBER",
   "END", "SAVE", "GOTO", "WHERE", "PLUS", "SUB", "MULT", "DIV", "STRING",
   "QSTRING", "'\\n'", "$accept", "program", "statement_list", "statement",
-  "command", "expression_list", "expression", "factor", 0
+  "command", "expression_list", "expression", "multDiv", 0
 };
 #endif
 
@@ -1577,21 +1577,21 @@ yyreduce:
 
 /* Line 1455 of yacc.c  */
 #line 104 "gvlogo.y"
-    { (yyval.f)=(yyvsp[(1) - (1)].f); ;}
+    { (yyval.f) = (yyvsp[(1) - (1)].f); ;}
     break;
 
   case 21:
 
 /* Line 1455 of yacc.c  */
 #line 105 "gvlogo.y"
-    { (yyval.f)=(yyvsp[(1) - (3)].f)+(yyvsp[(3) - (3)].f); ;}
+    { (yyval.f) = (yyvsp[(1) - (3)].f) + (yyvsp[(3) - (3)].f); ;}
     break;
 
   case 22:
 
 /* Line 1455 of yacc.c  */
 #line 106 "gvlogo.y"
-    { (yyval.f)=(yyvsp[(1) - (3)].f)-(yyvsp[(3) - (3)].f); ;}
+    { (yyval.f) = (yyvsp[(1) - (3)].f) - (yyvsp[(3) - (3)].f); ;}
     break;
 
   case 23:
@@ -1612,7 +1612,7 @@ yyreduce:
 
 /* Line 1455 of yacc.c  */
 #line 110 "gvlogo.y"
-    { (yyval.f) = (yyvsp[(1) - (3)].f)/(yyvsp[(3) - (3)].f) ;}
+    { (yyval.f) = (yyvsp[(1) - (3)].f) / (yyvsp[(3) - (3)].f); ;}
     break;
 
 
@@ -1837,7 +1837,7 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 112 "gvlogo.y"
+#line 113 "gvlogo.y"
 
 
 int main(int argc, char** argv){
