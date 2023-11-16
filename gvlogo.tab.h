@@ -58,8 +58,10 @@
      SUB = 274,
      MULT = 275,
      DIV = 276,
-     STRING = 277,
-     QSTRING = 278
+     VARASSIGN = 277,
+     VAR = 278,
+     STRING = 279,
+     QSTRING = 280
    };
 #endif
 
@@ -70,15 +72,16 @@ typedef union YYSTYPE
 {
 
 /* Line 1676 of yacc.c  */
-#line 53 "gvlogo.y"
+#line 55 "gvlogo.y"
 
 	float f;
 	char* s;
+	int i;
 
 
 
 /* Line 1676 of yacc.c  */
-#line 82 "gvlogo.tab.h"
+#line 85 "gvlogo.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

@@ -19,6 +19,8 @@ static const int DRAW_EVENT = SDL_USEREVENT + 2;
 static const int COLOR_EVENT = SDL_USEREVENT + 3;
 static const int WHERE_EVENT = SDL_USEREVENT + 4;
 
+char* variables[26];
+
 typedef struct color_t {
 	unsigned char r;
 	unsigned char g;
@@ -53,6 +55,7 @@ void shutdown();
 %union {
 	float f;
 	char* s;
+	int i;
 }
 
 %locations
@@ -73,6 +76,7 @@ void shutdown();
 %token GOTO
 %token WHERE
 %token PLUS SUB MULT DIV
+%token<i> VARASSIGN VAR
 %token<s> STRING QSTRING
 %type<f> multDiv expression expression_list NUMBER
 
@@ -84,19 +88,26 @@ program:		statement_list END						{ printf("Program complete."); shutdown(); exi
 statement_list:		statement					
 		|	statement statement_list
 		;
-statement:		command SEP							    { prompt(); }
+statement:		command SEP						    	{ prompt(); }
 		|		expression_list	SEP						{ prompt(); }
-		|	    error '\n' 								{ yyerrok; prompt(); }
+		|		VARASSIGN expression SEP				{ variables[$1] = (char) $2; prompt();}
+		|		VARASSIGN STRING SEP					{ variables[$1] = $2; prompt();}
+		|	    error '\n'								{ yyerrok; prompt(); }
 		;
 command:		PENUP									{ penup(); }
 		|		PENDOWN 								{ pendown(); }
 		|		PRINT STRING							{ printf("%s\n", $2); }
+		|		PRINT VAR								{ printf("%s\n", $2); }
 		|		MOVE NUMBER								{ move($2); }
+		|		MOVE VAR								{ move(variables[$2]); }
 		|		CHANGE_COLOR NUMBER NUMBER NUMBER		{ change_color($2, $3, $4); }
+		|		CHANGE_COLOR VAR VAR VAR				{ change_color(variables[$2], variables[$3], variables[$4]); }
 		|		CLEAR									{ clear(); }
 		|		TURN NUMBER								{ turn($2); }
+		|		TURN VAR								{ turn(variables[$2]); }
 		|		SAVE STRING								{ save($2); }
 		|		GOTO NUMBER NUMBER						{ goTo($2, $3); }
+		|		GOTO VAR VAR							{ goTo(variables[$2], variables[$3]); }
 		| 		WHERE									{ printf("x: %.2f, y: %.2f\n", x, y); }
 		;
 expression_list: expression								{ printf("%0.2f\n", $1); }
@@ -120,8 +131,8 @@ int main(int argc, char** argv){
 
 int yyerror(const char* s){
 	printf("Error: %s\n", s);
-	return -1;
-};
+	return 0;
+}
 
 void prompt(){
 	printf("gv_logo > ");

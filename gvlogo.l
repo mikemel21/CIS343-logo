@@ -27,10 +27,13 @@ end                                             { return END; }
 "-"                                             { return SUB; }
 "*"                                             { return MULT; }
 "/"                                             { return DIV; }
+[A-Za-z0-9]                                     { yylval.s = yytext; return STRING; }
+[A-Z]\$=                                        { yylval.i = yytext[0] - 65; return VARASSIGN; }
+[A-Z]\$                                         { yylval.i = yytext[0] - 65; return VAR; }
 
 
 ;                               { return SEP; }
 [ \t\r\n]			            ;
-.			                    { yyerror("Lexing Syntax error.\n"); return yyerror;} 
+.			                    { printf("error in: %c\n", yytext[0]); yyerror("Lexing Syntax error.\n"); } 
 
 %%
