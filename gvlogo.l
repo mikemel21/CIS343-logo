@@ -1,5 +1,6 @@
 %option noyywrap
 %{
+// Michael Melei, Justin Burch
 #include <stdio.h>
 #include <stdlib.h>
 #include "gvlogo.tab.h"

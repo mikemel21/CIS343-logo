@@ -72,7 +72,7 @@ typedef union YYSTYPE
 {
 
 /* Line 1676 of yacc.c  */
-#line 55 "gvlogo.y"
+#line 56 "gvlogo.y"
 
 	float f;
 	char* s;

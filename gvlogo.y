@@ -1,4 +1,5 @@
 %{
+// Michael Melei, Justin Burch
 #define WIDTH 640
 #define HEIGHT 480
 
@@ -19,7 +20,7 @@ static const int DRAW_EVENT = SDL_USEREVENT + 2;
 static const int COLOR_EVENT = SDL_USEREVENT + 3;
 static const int WHERE_EVENT = SDL_USEREVENT + 4;
 
-char* variables[26];
+int variables[26];
 
 typedef struct color_t {
 	unsigned char r;
@@ -90,7 +91,7 @@ statement_list:		statement
 		;
 statement:		command SEP						    	{ prompt(); }
 		|		expression_list	SEP						{ prompt(); }
-		|		VARASSIGN expression SEP				{ variables[$1] = (char) $2; prompt();}
+		|		VARASSIGN expression SEP				{ variables[$1] = $2; prompt();}
 		|		VARASSIGN STRING SEP					{ variables[$1] = $2; prompt();}
 		|	    error '\n'								{ yyerrok; prompt(); }
 		;

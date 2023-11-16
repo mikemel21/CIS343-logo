@@ -425,12 +425,13 @@ char *yytext;
 #line 1 "gvlogo.l"
 #define INITIAL 0
 #line 3 "gvlogo.l"
+// Michael Melei, Justin Burch
 #include <stdio.h>
 #include <stdlib.h>
 #include "gvlogo.tab.h"
 
 extern void yyerror(const char* s);
-#line 434 "lex.yy.c"
+#line 435 "lex.yy.c"
 
 /* Macros after this point can all be overridden by user definitions in
  * section 1.
@@ -581,9 +582,9 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
 
-#line 10 "gvlogo.l"
+#line 11 "gvlogo.l"
 
-#line 587 "lex.yy.c"
+#line 588 "lex.yy.c"
 
 	if ( yy_init )
 		{
@@ -668,135 +669,135 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 11 "gvlogo.l"
+#line 12 "gvlogo.l"
 { return PENUP; }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 12 "gvlogo.l"
+#line 13 "gvlogo.l"
 { return PENDOWN; }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 13 "gvlogo.l"
+#line 14 "gvlogo.l"
 { return PRINT; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 14 "gvlogo.l"
+#line 15 "gvlogo.l"
 { yylval.s = yytext; return STRING; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 15 "gvlogo.l"
+#line 16 "gvlogo.l"
 { return MOVE; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 16 "gvlogo.l"
+#line 17 "gvlogo.l"
 { yylval.f = atof(yytext); return NUMBER; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 17 "gvlogo.l"
+#line 18 "gvlogo.l"
 { yylval.f = atof(yytext); return NUMBER; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 18 "gvlogo.l"
+#line 19 "gvlogo.l"
 { return CHANGE_COLOR; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 19 "gvlogo.l"
+#line 20 "gvlogo.l"
 { return CLEAR; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 20 "gvlogo.l"
+#line 21 "gvlogo.l"
 { return TURN; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 21 "gvlogo.l"
+#line 22 "gvlogo.l"
 { return SAVE; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 22 "gvlogo.l"
+#line 23 "gvlogo.l"
 { yylval.s = yytext; return STRING; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 23 "gvlogo.l"
+#line 24 "gvlogo.l"
 { return GOTO; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 24 "gvlogo.l"
+#line 25 "gvlogo.l"
 { return WHERE; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 25 "gvlogo.l"
+#line 26 "gvlogo.l"
 { return END; }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 26 "gvlogo.l"
+#line 27 "gvlogo.l"
 { return PLUS; }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 27 "gvlogo.l"
+#line 28 "gvlogo.l"
 { return SUB; }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 28 "gvlogo.l"
+#line 29 "gvlogo.l"
 { return MULT; }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 29 "gvlogo.l"
+#line 30 "gvlogo.l"
 { return DIV; }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 30 "gvlogo.l"
+#line 31 "gvlogo.l"
 { yylval.s = yytext; return STRING; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 31 "gvlogo.l"
+#line 32 "gvlogo.l"
 { yylval.i = yytext[0] - 65; return VARASSIGN; }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 32 "gvlogo.l"
+#line 33 "gvlogo.l"
 { yylval.i = yytext[0] - 65; return VAR; }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 35 "gvlogo.l"
+#line 36 "gvlogo.l"
 { return SEP; }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 36 "gvlogo.l"
+#line 37 "gvlogo.l"
 ;
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 37 "gvlogo.l"
+#line 38 "gvlogo.l"
 { printf("error in: %c\n", yytext[0]); yyerror("Lexing Syntax error.\n"); } 
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 39 "gvlogo.l"
+#line 40 "gvlogo.l"
 ECHO;
 	YY_BREAK
-#line 800 "lex.yy.c"
+#line 801 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1682,5 +1683,5 @@ int main()
 	return 0;
 	}
 #endif
-#line 39 "gvlogo.l"
+#line 40 "gvlogo.l"
 
