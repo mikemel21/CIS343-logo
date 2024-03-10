@@ -5,6 +5,7 @@ This project utilizes SDL2, Flex, and Bison to make a basic clone of the LOGO pr
 - Bison is a parser generator that reads the tokens given from Flex to determine if the syntax conforms to the grammar and if so, carry out a specific action.
 
 # Commands
+**Note: All commands must end with ```;```.**
 - ```penup```: Stop pen from drawing on screen. Allows you to move the position without leaving a line.
 - ```pendown```: Allow pen to draw again.
 - ```move DOUBLE```: Move the pen a specified distance in the direction it is facing.
@@ -13,7 +14,7 @@ This project utilizes SDL2, Flex, and Bison to make a basic clone of the LOGO pr
 - ```goto DOUBLE DOUBLE```: Change the pen's position to a specified X and Y value.
 - ```where```: Prints the pen's current coordinates to the console.
 - ```clear```: Remove all drawings from the display.
-- ```print STRING```: Display given string to the console.
+- ```print STRING```: Display given string to the console. A variable can also be used instead of a string.
 - ```save STRING```: Save the drawing to given file path.
 - ```end```: Quit the program.
 ## Variables
