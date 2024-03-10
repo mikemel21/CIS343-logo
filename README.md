@@ -9,12 +9,12 @@ This project utilizes SDL2, Flex, and Bison to make a basic clone of the LOGO pr
 - ```penup```: Stop pen from drawing on screen. Allows you to move the position without leaving a line.
 - ```pendown```: Allow pen to draw again.
 - ```move DOUBLE```: Move the pen a specified distance in the direction it is facing.
-- ```color DOUBLE DOUBLE DOUBLE```: Change the color of the pen to a color in RGB format.
+- ```color DOUBLE DOUBLE DOUBLE```: Change the color of the pen to a color in RGB format. Default value is 0, 0, 0. 
 - ```turn DOUBLE```: Rotate the pen a specified degree value.
 - ```goto DOUBLE DOUBLE```: Change the pen's position to a specified X and Y value.
 - ```where```: Prints the pen's current coordinates to the console.
 - ```clear```: Remove all drawings from the display.
-- ```print STRING```: Display given string to the console. A variable can also be used instead of a string.
+- ```print STRING```: Display given string to the console. A variable can also be used instead of a string. ex. ```print "Hello World";```, ```print A$;```
 - ```save STRING```: Save the drawing to given file path.
 - ```end```: Quit the program.
 ## Variables
